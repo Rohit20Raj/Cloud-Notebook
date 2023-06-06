@@ -30,7 +30,7 @@ const NoteState = (props) => {
         // 'Content-Type': 'application/x-www-form-urlencoded',
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2ZTI3NmQyYzZkNmZmNzRkMTRiNDMzIn0sImlhdCI6MTY4NDk0MTM4NH0.X9ljC0-MvAIJGbXPWfjM2ZOWd8Z9ZQrVVoy9DCIPGco"
       },
-      body: JSON.stringify(title, description, tag), // body data type must match "Content-Type" header
+      body: JSON.stringify({title, description, tag}) // body data type must match "Content-Type" header
     });
     const json = response.json(); // parses JSON response into native JavaScript objects
     console.log(json);
@@ -49,7 +49,17 @@ const NoteState = (props) => {
   }
 
   // Delete Note
-  const deleteNote = (id) => {
+  const deleteNote = async (id) => {
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2ZTI3NmQyYzZkNmZmNzRkMTRiNDMzIn0sImlhdCI6MTY4NDk0MTM4NH0.X9ljC0-MvAIJGbXPWfjM2ZOWd8Z9ZQrVVoy9DCIPGco"
+      },
+    });
+    const json = response.json(); // parses JSON response into native JavaScript objects
+    console.log(json);
     console.log("Deleting the note with id " + id);
     const newNotes = notes.filter((note) => { return note._id !== id });
     setNotes(newNotes);
