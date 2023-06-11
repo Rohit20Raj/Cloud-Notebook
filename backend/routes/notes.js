@@ -39,8 +39,6 @@ router.post('/addnote', fetchuser, [
         console.log(err);
         res.status(500).json({ error: 'Internal server error' });
     }
-
-
 });
 
 // Route 3: Update Notes using: PUT "/api/notes/updatenote". Login required
